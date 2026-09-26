@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ subject["name"] }} - Smart Study Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body class="subject-page">
+
+
+<!-- NAVBAR -->
+
+<nav class="dashboard-navbar">
+
+    <div class="logo">
+        ✦ Smart Study Planner
+    </div>
+
+    <div class="dashboard-nav-links">
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/">
+            Home
+        </a>
+
+        <div class="profile-circle">
+            👤
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main class="subject-container">
+
+
+    <!-- HEADER -->
+
+    <section class="subject-header">
+
+        <div>
+
+            <div class="small-label">
+                ✨ SUBJECT DETAILS
+            </div>
+
+            <h1>
+                {{ subject["name"] }} <span>📚</span>
+            </h1>
+
+            <p>
+                Keep track of your chapters and see how
+                prepared you are.
+            </p>
+
+        </div>
+
+
+        <a href="/dashboard"
+           class="back-dashboard-button">
+
+            ← Dashboard
+
+        </a>
+
+    </section>
+
+
+
+    <!-- SUBJECT INFO -->
+
+    <section class="subject-info-grid">
+
+
+        <div class="subject-info-card">
+
+            <div class="info-icon">
+                {% if subject["difficulty"] == 3 %}
+                    🔥
+                {% elif subject["difficulty"] == 2 %}
+                    🌼
+                {% else %}
+                    🌱
+                {% endif %}
+            </div>
+
+            <div>
+
+                <span>
+                    Difficulty
+                </span>
+
+                <strong>
+
+                    {% if subject["difficulty"] == 3 %}
+                        Hard
+                    {% elif subject["difficulty"] == 2 %}
+                        Medium
+                    {% else %}
+                        Easy
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="subject-info-card">
+
+            <div class="info-icon">
+                📊
+            </div>
+
+            <div>
+
+                <span>
+                    Preparation
+                </span>
+
+                <strong>
+                    {{ subject["preparation"] }}%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="subject-info-card">
+
+            <div class="info-icon">
+                📖
+            </div>
+
+            <div>
+
+                <span>
+                    Topics
+                </span>
+
+                <strong>
+                    {{ topics|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        </section>
+
+
+    <!-- EXAM DATE -->
+
+    <section class="subject-ai-card" style="margin-bottom: 30px;">
+
+        <div class="subject-ai-icon">
+            📅
+        </div>
+
+        <div>
+
+            <div class="small-label">
+                EXAM DATE
+            </div>
+
+            <h2>
+                Set your exam date
+            </h2>
+
+            <form
+                action="/subject/{{ subject['id'] }}/add-exam"
+                method="POST"
+                style="margin-top: 15px;"
+            >
+
+                <input
+                    type="date"
+                    name="exam_date"
+                    value="{{ subject['exam_date'] or '' }}"
+                    required
+                    style="padding: 12px; border-radius: 10px; border: 1px solid #ddd;"
+                >
+
+                <button type="submit">
+                    Save Exam Date
+                </button>
+
+            </form>
+
+            {% if subject["exam_date"] %}
+
+                <p style="margin-top: 12px;">
+                    📌 Exam date:
+                    <strong>{{ subject["exam_date"] }}</strong>
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TOPICS -->
+
+    <section class="topics-section">
+
+
+        <div class="topics-card">
+
+
+            <div class="topics-heading">
+
+                <div>
+
+                    <div class="small-label">
+                        CHAPTERS & TOPICS
+                    </div>
+
+                    <h2>
+                        Your Topics 🌸
+                    </h2>
+
+                </div>
+
+
+                {% if topics %}
+
+                <span class="topic-count">
+
+                    {{ topics|length }} topics
+
+                </span>
+
+                {% endif %}
+
+            </div>
+
+
+
+            <!-- ADD TOPIC -->
+
+            <form
+                action="/subject/{{ subject['id'] }}/add-topic"
+                method="POST"
+                class="add-topic-form"
+            >
+
+                <input
+                    type="text"
+                    name="topic_name"
+                    placeholder="e.g. Normalization"
+                    required
+                >
+
+                <button type="submit">
+                    + Add Topic
+                </button>
+
+            </form>
+
+
+
+            <!-- TOPIC LIST -->
+
+            {% if topics %}
+
+                <div class="topic-list">
+
+                    {% for topic in topics %}
+
+                    <div class="topic-item
+                        {% if topic['completed'] %}
+                            topic-completed
+                        {% endif %}
+                    ">
+
+
+                        <form
+                            action="/topic/{{ topic['id'] }}/toggle"
+                            method="POST"
+                        >
+
+                            <button
+                                type="submit"
+                                class="topic-check"
+                            >
+
+                                {% if topic["completed"] %}
+                                    ✓
+                                {% else %}
+                                    ○
+                                {% endif %}
+
+                            </button>
+
+                        </form>
+
+
+                        <div class="topic-name">
+
+                            <span>
+                                {{ topic["name"] }}
+                            </span>
+
+                            {% if topic["completed"] %}
+
+                            <small>
+                                Completed ✨
+                            </small>
+
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="no-topics">
+
+                    <div class="no-topics-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        No topics yet
+                    </h3>
+
+                    <p>
+                        Add your chapters above and start
+                        building your study plan.
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- AI PREVIEW -->
+
+    <section class="subject-ai-card">
+
+        <div class="subject-ai-icon">
+            ✦
+        </div>
+
+        <div>
+
+            <div class="small-label">
+                AI STUDY PLANNER
+            </div>
+
+            <h2>
+                Smart planning is coming 🧠
+            </h2>
+
+            <p>
+                Once you add your exam date and available
+                study hours, the planner will use your
+                topics, preparation and difficulty to
+                decide what you should study first.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<footer class="dashboard-footer">
+
+    <div class="logo">
+        ✦ Smart Study Planner
+    </div>
+
+    <p>
+        Study smarter. Stay consistent.
+        Achieve your goals. 🌷
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

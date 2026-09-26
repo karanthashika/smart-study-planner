@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Study Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <span>✦</span> Smart Study Planner
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="#features">Features</a>
+            <a href="/login">Login</a>
+        </div>
+
+    </nav>
+
+
+    <!-- Hero Section -->
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <div class="small-label">
+                ✨ YOUR PERSONAL STUDY COMPANION
+            </div>
+
+            <h1>
+                Study smarter.<br>
+                <span>Achieve more.</span>
+            </h1>
+
+            <p>
+                Plan your studies, stay organized and prepare for your
+                exams with an intelligent study planner designed around you.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="/login" class="primary-button">
+                    Get Started →
+                </a>
+
+                <a href="#features" class="secondary-button">
+                    Explore Features
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Planner Preview -->
+        <div class="planner-preview">
+
+            <div class="preview-header">
+
+                <div>
+                    <p class="preview-small">TODAY'S PLAN</p>
+                    <h3>September 12</h3>
+                </div>
+
+                <div class="calendar-icon">
+                    📅
+                </div>
+
+            </div>
+
+
+            <div class="study-task">
+                <div class="task-icon pink">📚</div>
+
+                <div class="task-info">
+                    <strong>DBMS</strong>
+                    <span>Normalization</span>
+                </div>
+
+                <span class="task-time">1 hr</span>
+            </div>
+
+
+            <div class="study-task">
+                <div class="task-icon purple">💻</div>
+
+                <div class="task-info">
+                    <strong>Python</strong>
+                    <span>Functions & Lists</span>
+                </div>
+
+                <span class="task-time">1 hr</span>
+            </div>
+
+
+            <div class="study-task">
+                <div class="task-icon yellow">🧠</div>
+
+                <div class="task-info">
+                    <strong>Computer Networks</strong>
+                    <span>OSI Model</span>
+                </div>
+
+                <span class="task-time">45 min</span>
+            </div>
+
+
+            <div class="preview-progress">
+
+                <div class="progress-heading">
+                    <span>Today's progress</span>
+                    <strong>72%</strong>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Features -->
+    <section class="features" id="features">
+
+        <div class="section-heading">
+
+            <div class="small-label">
+                ✦ EVERYTHING YOU NEED
+            </div>
+
+            <h2>
+                Your study life,<br>
+                <span>organized beautifully.</span>
+            </h2>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+            <div class="feature-card card-pink">
+
+                <div class="feature-icon">📅</div>
+
+                <h3>Smart Scheduling</h3>
+
+                <p>
+                    Get a personalized study schedule based on your
+                    exams, subjects, difficulty and preparation level.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card card-purple">
+
+                <div class="feature-icon">🧠</div>
+
+                <h3>AI Study Insights</h3>
+
+                <p>
+                    Intelligent recommendations help identify what
+                    you should focus on next.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card card-yellow">
+
+                <div class="feature-icon">📊</div>
+
+                <h3>Track Progress</h3>
+
+                <p>
+                    Monitor your study sessions, completion rate,
+                    goals and overall preparation.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card card-blue">
+
+                <div class="feature-icon">🎯</div>
+
+                <h3>Exam Readiness</h3>
+
+                <p>
+                    Understand how prepared you are and where you
+                    need to spend more time.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- AI Section -->
+    <section class="ai-section">
+
+        <div class="ai-card">
+
+            <div class="ai-symbol">
+                ✦
+            </div>
+
+            <div>
+
+                <div class="small-label">
+                    INTELLIGENT STUDY PLANNING
+                </div>
+
+                <h2>
+                    Your schedule adapts<br>
+                    <span>as you progress.</span>
+                </h2>
+
+                <p>
+                    Missed a study session? Falling behind in a difficult
+                    subject? Our planner can adjust your schedule based
+                    on your progress and priorities.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="logo">
+            <span>✦</span> Smart Study Planner
+        </div>
+
+        <p>
+            Study smarter. Stay consistent. Achieve your goals.
+        </p>
+
+    </footer>
+
+</body>
+</html>

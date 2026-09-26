@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Subject - Smart Study Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body class="add-subject-page">
+
+    <nav class="dashboard-navbar">
+
+        <div class="logo">
+            ✦ Smart Study Planner
+        </div>
+
+        <div class="dashboard-nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/">Home</a>
+
+            <div class="profile-circle">
+                👤
+            </div>
+        </div>
+
+    </nav>
+
+
+    <main class="add-subject-container">
+
+        <div class="add-subject-heading">
+
+            <div class="small-label">
+                ✨ BUILD YOUR STUDY PLAN
+            </div>
+
+            <h1>
+                Add a <span>subject</span> 🌸
+            </h1>
+
+            <p>
+                Tell us about a subject and we'll use it to
+                create your personalized study plan.
+            </p>
+
+        </div>
+
+
+        <div class="add-subject-card">
+
+            <div class="form-icon">
+                📚
+            </div>
+
+            <h2>Subject Details</h2>
+
+            <p class="form-description">
+                Add some basic information about your subject.
+            </p>
+
+
+            <form action="/add-subject" method="POST">
+
+                <div class="input-group">
+
+                    <label for="subject_name">
+                        Subject Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="subject_name"
+                        name="subject_name"
+                        placeholder="e.g. Database Management Systems"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="difficulty">
+                        Difficulty Level
+                    </label>
+
+                    <select id="difficulty"
+                            name="difficulty"
+                            required>
+
+                        <option value="">
+                            Select difficulty
+                        </option>
+
+                        <option value="1">
+                            🌱 Easy
+                        </option>
+
+                        <option value="2">
+                            🌼 Medium
+                        </option>
+
+                        <option value="3">
+                            🔥 Hard
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="preparation">
+                        Current Preparation
+                    </label>
+
+                    <div class="range-wrapper">
+
+                        <input
+                            type="range"
+                            id="preparation"
+                            name="preparation"
+                            min="0"
+                            max="100"
+                            value="50"
+                            oninput="preparationValue.innerText = this.value + '%'"
+                        >
+
+                        <span id="preparationValue">
+                            50%
+                        </span>
+
+                    </div>
+
+                    <small>
+                        How prepared are you for this subject?
+                    </small>
+
+                </div>
+
+
+                <button type="submit"
+                        class="add-subject-button">
+
+                    Add Subject ✨
+
+                </button>
+
+            </form>
+
+
+            <div class="form-footer">
+
+                <a href="/dashboard">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="dashboard-footer">
+
+        <div class="logo">
+            ✦ Smart Study Planner
+        </div>
+
+        <p>
+            Study smarter. Stay consistent. Achieve your goals. 🌷
+        </p>
+
+    </footer>
+
+</body>
+</html>

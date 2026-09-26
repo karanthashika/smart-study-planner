@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Smart Study Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<nav class="dashboard-navbar">
+
+    <div class="logo">
+        ✦ Smart Study Planner
+    </div>
+
+    <div class="dashboard-nav-links">
+        <a href="/settings">Study Time</a>
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="#plan">
+            My Plan
+        </a>
+
+        <a href="#progress">
+            Progress
+        </a>
+
+        <div class="profile-circle">
+            👤
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ========================================
+     MAIN DASHBOARD
+======================================== -->
+
+<main class="dashboard-container">
+
+
+    <!-- ====================================
+         GREETING
+    ===================================== -->
+
+    <section class="dashboard-greeting">
+
+        <div>
+
+            <div class="small-label">
+                ✨ YOUR PERSONAL DASHBOARD
+            </div>
+
+            <h1>
+                Good morning, <span>Student!</span> 🌸
+            </h1>
+
+            <p>
+                Let's make today a productive one.
+                Here's your study plan at a glance.
+            </p>
+
+        </div>
+
+
+        <div class="streak-card">
+
+            <div class="streak-icon">
+                🔥
+            </div>
+
+            <div>
+
+                <strong>
+                    7 Days
+                </strong>
+
+                <span>
+                    Study streak
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ====================================
+         STATS
+    ===================================== -->
+
+    <section class="stats-grid">
+
+
+        <!-- SUBJECTS -->
+
+        <div class="stat-card pink-stat">
+
+            <div class="stat-icon">
+                📚
+            </div>
+
+            <div>
+
+                <span>
+                    Subjects
+                </span>
+
+                <strong>
+                    {{ subjects|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXAMS -->
+
+        <div class="stat-card purple-stat">
+
+            <div class="stat-icon">
+                📅
+            </div>
+
+            <div>
+
+                <span>
+                    Upcoming Exams
+                </span>
+
+                <strong>
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDY HOURS -->
+
+        <div class="stat-card yellow-stat">
+
+            <div class="stat-icon">
+                ⏱️
+            </div>
+
+            <div>
+
+                <span>
+                    Study Hours
+                </span>
+
+                <strong>{{ study_hours }}h</strong>
+            </div>
+
+        </div>
+
+
+        <!-- OVERALL PROGRESS -->
+
+        <div class="stat-card blue-stat">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <div>
+
+                <span>
+                    Overall Progress
+                </span>
+
+                <strong>
+                    0%
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ====================================
+         FIRST ROW
+    ===================================== -->
+
+    <section class="dashboard-grid">
+
+
+        <!-- ==================================
+             MY SUBJECTS
+        =================================== -->
+
+        <div class="dashboard-card today-plan"
+             id="plan">
+
+
+            <div class="card-heading">
+
+                <div>
+
+                    <div class="small-label">
+                        TODAY
+                    </div>
+
+                    <h2>
+                        My Subjects
+                    </h2>
+
+                </div>
+
+
+                <span class="date-badge">
+
+                    {{ subjects|length }}
+                    subjects
+
+                </span>
+
+            </div>
+
+
+            <!-- SUBJECTS EXIST -->
+
+            {% if subjects %}
+
+
+                {% for subject in subjects %}
+
+                <div class="study-item">
+
+
+                    <!-- DIFFICULTY ICON -->
+
+                    <div class="study-item-icon purple-icon">
+
+                        {% if subject["difficulty"] == 3 %}
+
+                            🔥
+
+                        {% elif subject["difficulty"] == 2 %}
+
+                            🌼
+
+                        {% else %}
+
+                            🌱
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- SUBJECT INFORMATION -->
+
+                    <div class="study-item-content">
+
+
+                        <strong>
+
+                            <!-- CLICKABLE SUBJECT NAME -->
+
+                            <a href="/subject/{{ subject['id'] }}"
+                               class="subject-link">
+
+                                {{ subject["name"] }}
+
+                            </a>
+
+                        </strong>
+
+
+                        <span>
+
+                            Preparation:
+                            {{ subject["preparation"] }}%
+
+                        </span>
+
+
+                        <!-- PREPARATION BAR -->
+
+                        <div class="mini-progress">
+
+                            <div
+                                class="mini-progress-fill"
+                                style="width: {{ subject['preparation'] }}%;">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DIFFICULTY -->
+
+                    <div class="study-duration">
+
+                        {% if subject["difficulty"] == 3 %}
+
+                            Hard
+
+                        {% elif subject["difficulty"] == 2 %}
+
+                            Medium
+
+                        {% else %}
+
+                            Easy
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+                {% endfor %}
+
+
+            <!-- NO SUBJECTS -->
+
+            {% else %}
+
+
+                <div class="empty-subject-message">
+
+                    <p>
+                        You haven't added any subjects yet 🌸
+                    </p>
+
+                    <a href="/add-subject">
+                        + Add your first subject
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+            <!-- ADD SUBJECT BUTTON -->
+
+            <a href="/add-subject"
+               class="add-plan-button">
+
+                + Add Subject
+
+            </a>
+
+
+        </div>
+
+
+        <!-- ==================================
+             AI INSIGHT
+        =================================== -->
+
+        <div class="dashboard-card ai-insight-card">
+
+
+            <div class="ai-top">
+
+                <div class="ai-card-icon">
+                    ✦
+                </div>
+
+                <span class="ai-label">
+                    AI STUDY INSIGHT
+                </span>
+
+            </div>
+
+
+            <h2>
+                Your smart plan is coming 🧠
+            </h2>
+
+
+            <p>
+
+                Once you add your exam dates and topics,
+                our intelligent planner will analyze your
+                preparation, difficulty and deadlines to
+                recommend what you should study first.
+
+            </p>
+
+
+            <div class="ai-reason">
+
+
+                <div>
+
+                    <span>
+                        Subjects
+                    </span>
+
+                    <strong>
+                        {{ subjects|length }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Planning
+                    </span>
+
+                    <strong>
+                        Ready
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        AI Status
+                    </span>
+
+                    <strong>
+                        Preparing
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <a href="/add-subject"
+               class="ai-button">
+
+                Add More Details →
+
+            </a>
+
+        </div>
+
+
+    </section>
+    <!-- ====================================
+         SMART STUDY PLAN
+    ===================================== -->
+
+    <section class="dashboard-card" style="margin-top: 30px;" id="smart-plan">
+
+        <div class="card-heading">
+
+            <div>
+
+                <div class="small-label">
+                    ✦ SMART SCHEDULER
+                </div>
+
+                <h2>
+                    Today's Study Plan 🧠
+                </h2>
+
+            </div>
+
+            <span class="date-badge">
+                {{ study_hours }}h available
+            </span>
+
+        </div>
+
+
+        {% if schedule %}
+
+            {% for item in schedule %}
+
+            <div class="study-item">
+
+                <div class="study-item-icon purple-icon">
+                    📚
+                </div>
+
+                <div class="study-item-content">
+
+                    <strong>
+                        {{ item["subject"] }}
+                    </strong>
+
+                    <span>
+                        Priority score: {{ item["priority"] }}
+                    </span>
+
+                </div>
+
+                <div class="study-duration">
+
+                    ⏱️ {{ item["minutes"] }} min
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-subject-message">
+
+                <p>
+                    Your smart study plan isn't ready yet 🌸
+                </p>
+
+                <p>
+                    Add subjects and exam dates to generate
+                    your personalized schedule.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+    <!-- ====================================
+         SECOND ROW
+    ===================================== -->
+
+    <section class="dashboard-grid second-row">
+
+
+        <!-- ==================================
+             UPCOMING EXAMS
+        =================================== -->
+
+        <div class="dashboard-card">
+
+
+            <div class="card-heading">
+
+                <div>
+
+                    <div class="small-label">
+                        DEADLINES
+                    </div>
+
+                    <h2>
+                        Upcoming Exams
+                    </h2>
+
+                </div>
+
+
+                <span class="view-all">
+                    Coming soon →
+                </span>
+
+            </div>
+
+
+            <div class="empty-subject-message">
+
+                <p>
+                    No exam dates added yet 📅
+                </p>
+
+                <p>
+                    Add your exam dates and we'll calculate
+                    urgency automatically.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==================================
+             PROGRESS
+        =================================== -->
+
+        <div class="dashboard-card"
+             id="progress">
+
+
+            <div class="small-label">
+                YOUR PROGRESS
+            </div>
+
+
+            <h2>
+                Keep going! 🌷
+            </h2>
+
+
+            <div class="progress-circle-container">
+
+                <div class="progress-circle">
+
+                    <div>
+
+                        <strong>
+                            0%
+                        </strong>
+
+                        <span>
+                            Overall
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-details">
+
+
+                <div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                    <strong>
+                        0 sessions
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Remaining
+                    </span>
+
+                    <strong>
+                        0 sessions
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ====================================
+         BOTTOM ROW
+    ===================================== -->
+
+    <section class="bottom-grid">
+
+
+        <!-- ==================================
+             GOALS
+        =================================== -->
+
+        <div class="dashboard-card">
+
+
+            <div class="small-label">
+                MILESTONES
+            </div>
+
+
+            <h2>
+                My Goals 🎯
+            </h2>
+
+
+            <!-- GOAL 1 -->
+
+            <div class="goal">
+
+                <div class="goal-check">
+                    1
+                </div>
+
+                <div>
+
+                    <strong>
+                        Add your subjects
+                    </strong>
+
+                    <span>
+                        Start your study journey
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- GOAL 2 -->
+
+            <div class="goal">
+
+                <div class="goal-check">
+                    2
+                </div>
+
+                <div>
+
+                    <strong>
+                        Add your topics
+                    </strong>
+
+                    <span>
+                        Coming next
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- GOAL 3 -->
+
+            <div class="goal">
+
+                <div class="goal-check">
+                    3
+                </div>
+
+                <div>
+
+                    <strong>
+                        Add exam dates
+                    </strong>
+
+                    <span>
+                        Coming soon
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==================================
+             QUICK NOTES
+        =================================== -->
+
+        <div class="dashboard-card notes-card">
+
+
+            <div class="small-label">
+                QUICK NOTES
+            </div>
+
+
+            <h2>
+                Notes 📝
+            </h2>
+
+
+            <textarea
+                placeholder="Write something you want to remember...">
+            </textarea>
+
+
+            <button class="save-note-button">
+
+                Save Note
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- ========================================
+     FOOTER
+======================================== -->
+
+<footer class="dashboard-footer">
+
+
+    <div class="logo">
+        ✦ Smart Study Planner
+    </div>
+
+
+    <p>
+        Study smarter. Stay consistent.
+        Achieve your goals. 🌸
+    </p>
+
+
+</footer>
+
+
+</body>
+
+</html>

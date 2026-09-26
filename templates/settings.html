@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Time - Smart Study Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <nav class="dashboard-navbar">
+
+        <div class="logo">
+            ✦ Smart Study Planner
+        </div>
+
+        <div class="dashboard-nav-links">
+            <a href="/dashboard">Dashboard</a>
+            <a href="/">Home</a>
+        </div>
+
+    </nav>
+
+
+    <main class="add-subject-container">
+
+        <div class="add-subject-heading">
+
+            <div class="small-label">
+                ✨ PERSONALIZE YOUR PLAN
+            </div>
+
+            <h1>
+                Your study <span>time</span> ⏰
+            </h1>
+
+            <p>
+                Tell us how many hours you can study every day.
+            </p>
+
+        </div>
+
+
+        <div class="add-subject-card">
+
+            <div class="form-icon">
+                ⏰
+            </div>
+
+            <h2>Available Study Hours</h2>
+
+            <p class="form-description">
+                How much time can you realistically study each day?
+            </p>
+
+
+            <form action="/save-study-hours" method="POST">
+
+                <div class="input-group">
+
+                    <label for="study_hours">
+                        Hours per day
+                    </label>
+
+                    <input
+                        type="number"
+                        id="study_hours"
+                        name="study_hours"
+                        min="0.5"
+                        max="12"
+                        step="0.5"
+                        value="{{ study_hours }}"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit"
+                        class="add-subject-button">
+
+                    Save Study Time ✨
+
+                </button>
+
+            </form>
+
+
+            <div class="form-footer">
+
+                <a href="/dashboard">
+                    ← Back to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

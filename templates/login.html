@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Smart Study Planner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body class="login-page">
+
+    <div class="login-container">
+
+        <!-- Left side -->
+        <div class="login-info">
+
+            <div class="login-logo">
+                ✦ Smart Study Planner
+            </div>
+
+            <div class="login-message">
+
+                <div class="small-label">
+                    ✨ YOUR STUDY JOURNEY
+                </div>
+
+                <h1>
+                    Welcome<br>
+                    <span>back.</span>
+                </h1>
+
+                <p>
+                    Pick up where you left off and keep moving
+                    towards your study goals.
+                </p>
+
+                <div class="login-decoration">
+                    📚 &nbsp; 🧠 &nbsp; 📊 &nbsp; 🎯
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Right side -->
+        <div class="login-card">
+
+            <div class="login-card-header">
+
+                <div class="login-icon">
+                    ✦
+                </div>
+
+                <h2>Welcome Back</h2>
+
+                <p>
+                    Login to your Smart Study Planner
+                </p>
+
+            </div>
+
+
+            <form action="/dashboard" method="GET">
+
+                <div class="input-group">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="login-button">
+                    Login →
+                </button>
+
+            </form>
+
+
+            <div class="login-footer">
+
+                <a href="/">
+                    ← Back to Home
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
