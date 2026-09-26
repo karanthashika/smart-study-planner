@@ -1,4 +1,3 @@
-# smart-study-planner
 
 # 🌸 Smart Study Planner
 
